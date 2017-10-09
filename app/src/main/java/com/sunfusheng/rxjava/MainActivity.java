@@ -21,6 +21,8 @@ public class MainActivity extends RxAppCompatActivity {
         example01.just01();
         example01.just02();
         example01.just03();
+        example01.from01();
+        example01.defer01();
     }
 
 }

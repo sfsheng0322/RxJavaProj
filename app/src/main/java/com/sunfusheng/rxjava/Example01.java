@@ -1,7 +1,10 @@
 package com.sunfusheng.rxjava;
 
+import java.util.concurrent.Callable;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -37,15 +40,44 @@ public class Example01 extends BaseExample {
     }
 
     public void just01() {
-        Observable.just(1).subscribe(this::log);
+        Observable.just(1)
+                .subscribe(this::log);
     }
 
     public void just02() {
-        Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).subscribe(this::log);
+        Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+                .subscribe(this::log);
     }
 
     public void just03() {
-        Integer[] intArr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        Observable.just(intArr).subscribe(it -> log(it.toString()));
+        Observable.just(buildData("just03()"))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> log(it.toString()));
+    }
+
+    private Integer[] buildData(String prefix) {
+        printCurrentThread(prefix);
+        return new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    }
+
+    public void from01() {
+        Observable.fromArray(buildData("from01()"))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(it -> it * 2)
+                .toList()
+                .subscribe(it -> log(it.toString()));
+    }
+
+    public void defer01() {
+        Observable.defer(new Callable<ObservableSource<Integer[]>>() {
+            @Override
+            public ObservableSource<Integer[]> call() throws Exception {
+                return Observable.just(buildData("defer01()"));
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> log(it.toString()));
     }
 }
