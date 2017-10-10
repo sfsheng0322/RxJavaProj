@@ -1,10 +1,7 @@
 package com.sunfusheng.rxjava;
 
-import java.util.concurrent.Callable;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -71,12 +68,16 @@ public class Example01 extends BaseExample {
     }
 
     public void defer01() {
-        Observable.defer(new Callable<ObservableSource<Integer[]>>() {
-            @Override
-            public ObservableSource<Integer[]> call() throws Exception {
-                return Observable.just(buildData("defer01()"));
-            }
-        }).subscribeOn(Schedulers.io())
+        Observable.defer(() -> Observable.fromArray(buildData("defer01()")))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .toList()
+                .subscribe(it -> log(it.toString()));
+    }
+
+    public void defer02() {
+        Observable.defer(() -> Observable.just(buildData("defer02()")))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> log(it.toString()));
     }
