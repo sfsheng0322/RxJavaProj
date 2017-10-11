@@ -81,4 +81,33 @@ public class Example01 extends BaseExample {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> log(it.toString()));
     }
+
+    public static class ValueClass {
+
+        private String value = "default";
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public Observable<String> justObservable() {
+            return Observable.just(value);
+        }
+
+        public Observable<String> deferObservable() {
+            return Observable.defer(this::justObservable);
+        }
+    }
+
+    public void testJustDeferOperator() {
+        ValueClass instance = new ValueClass();
+        Observable<String> justObservable = instance.justObservable();
+        instance.setValue("some value");
+        justObservable.subscribe(it -> log("justObservable() value:" + it));
+
+        instance = new ValueClass();
+        Observable<String> deferObservable = instance.deferObservable();
+        instance.setValue("some value");
+        deferObservable.subscribe(it -> log("deferObservable() value:" + it));
+    }
 }
