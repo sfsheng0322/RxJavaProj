@@ -1,5 +1,7 @@
 package com.sunfusheng.rxjava;
 
+import android.widget.TextView;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -8,7 +10,23 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * @author sunfusheng on 2017/9/28.
  */
-public class Example01 extends BaseExample {
+public class RxJava01 extends BaseRxJava {
+
+    public RxJava01(TextView textView) {
+        super(textView);
+    }
+
+    public void test() {
+//        create01();
+//        create02();
+//        just01();
+//        just02();
+//        just03();
+//        from01();
+//        defer01();
+//        defer02();
+        testJustDeferOperator();
+    }
 
     public void create01() {
         Observable.create((ObservableOnSubscribe<Integer>) e -> {
@@ -24,14 +42,12 @@ public class Example01 extends BaseExample {
             e.onNext(1);
         }).subscribeOn(Schedulers.io())
                 .doOnNext(it -> printCurrentThread("1.doOnNext()"))
-                .observeOn(AndroidSchedulers.mainThread())
+                .map(it -> it * 10)
                 .doOnNext(it -> printCurrentThread("2.doOnNext()"))
-                .subscribeOn(Schedulers.io())
-                .doOnNext(it -> printCurrentThread("3.doOnNext()"))
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(it -> printCurrentThread("4.doOnNext()"))
+                .doOnNext(it -> printCurrentThread("3.doOnNext()"))
                 .subscribeOn(Schedulers.io())
-                .doOnNext(it -> printCurrentThread("5.doOnNext()"))
+                .doOnNext(it -> printCurrentThread("4.doOnNext()"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::log);
     }
@@ -83,7 +99,6 @@ public class Example01 extends BaseExample {
     }
 
     public static class ValueClass {
-
         private String value = "default";
 
         public void setValue(String value) {

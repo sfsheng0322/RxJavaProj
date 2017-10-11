@@ -15,20 +15,7 @@ public class MainActivity extends RxAppCompatActivity {
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.textView);
 
-        example01Test();
-    }
-
-    void example01Test() {
-        Example01 _01 = new Example01();
-//        _01.create01();
-//        _01.create02();
-//        _01.just01();
-//        _01.just02();
-//        _01.just03();
-//        _01.from01();
-//        _01.defer01();
-//        _01.defer02();
-        _01.testJustDeferOperator();
+        new RxJava01(textView).test();
     }
 
 }
