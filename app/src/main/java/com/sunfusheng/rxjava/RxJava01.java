@@ -17,15 +17,15 @@ public class RxJava01 extends BaseRxJava {
     }
 
     public void test() {
-//        create01();
-//        create02();
-//        just01();
-//        just02();
-//        just03();
-//        from01();
-//        defer01();
-//        defer02();
-//        testJustDeferOperator();
+        create01();
+        create02();
+        just01();
+        just02();
+        just03();
+        from01();
+        defer01();
+        defer02();
+        testJustDeferOperator();
     }
 
     public void create01() {
