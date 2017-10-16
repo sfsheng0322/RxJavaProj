@@ -25,7 +25,7 @@ public class RxJava01 extends BaseRxJava {
 //        from01();
 //        defer01();
 //        defer02();
-        testJustDeferOperator();
+//        testJustDeferOperator();
     }
 
     public void create01() {
