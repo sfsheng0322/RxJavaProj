@@ -5,6 +5,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author sunfusheng on 2017/9/28.
  */
@@ -51,5 +54,28 @@ public class BaseRxJava {
     protected void printCurrentThread(String prefix) {
         String s = TextUtils.isEmpty(prefix) ? "Current thread:" : prefix + " current thread:" + Thread.currentThread().getName();
         log(s);
+    }
+
+    protected Integer[] buildData01(String prefix) {
+        printCurrentThread(prefix);
+        return new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    }
+
+    protected List<Integer> buildData02(String prefix) {
+        printCurrentThread(prefix);
+        return new ArrayList<Integer>() {
+            {
+                add(1);
+                add(2);
+                add(3);
+                add(4);
+                add(5);
+                add(6);
+                add(7);
+                add(8);
+                add(9);
+                add(10);
+            }
+        };
     }
 }

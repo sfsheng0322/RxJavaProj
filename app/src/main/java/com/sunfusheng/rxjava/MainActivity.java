@@ -15,7 +15,7 @@ public class MainActivity extends RxAppCompatActivity {
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.textView);
 
-        new RxJava01(textView).test();
+        new RxJava02(textView).test();
     }
 
 }

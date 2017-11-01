@@ -63,19 +63,14 @@ public class RxJava01 extends BaseRxJava {
     }
 
     public void just03() {
-        Observable.just(buildData("just03()"))
+        Observable.just(buildData01("just03()"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> log(it.toString()));
     }
 
-    private Integer[] buildData(String prefix) {
-        printCurrentThread(prefix);
-        return new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    }
-
     public void from01() {
-        Observable.fromArray(buildData("from01()"))
+        Observable.fromArray(buildData01("from01()"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(it -> it * 2)
@@ -84,7 +79,7 @@ public class RxJava01 extends BaseRxJava {
     }
 
     public void defer01() {
-        Observable.defer(() -> Observable.fromArray(buildData("defer01()")))
+        Observable.defer(() -> Observable.fromArray(buildData01("defer01()")))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .toList()
@@ -92,7 +87,7 @@ public class RxJava01 extends BaseRxJava {
     }
 
     public void defer02() {
-        Observable.defer(() -> Observable.just(buildData("defer02()")))
+        Observable.defer(() -> Observable.just(buildData02("defer02()")))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> log(it.toString()));
